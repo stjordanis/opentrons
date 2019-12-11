@@ -1,18 +1,29 @@
 // @flow
-import { useRef, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Popper from 'popper.js'
 
+export type UseTooltipHook = {|
+  targetRef: (Element | null) => mixed,
+  tooltipRef: (Element | null) => mixed,
+  arrowRef: (Element | null) => mixed,
+|}
+
 export function useTooltip() {
-  const targetRef = useRef<Element | null>(null)
-  const tooltipRef = useRef<Element | null>(null)
-  const arrowRef = useRef<Element | null>(null)
+  const [target, targetRef] = useState<Element | null>(null)
+  const [tooltip, tooltipRef] = useState<Element | null>(null)
+  const [, arrowRef] = useState<Element | null>(null)
 
   useEffect(() => {
-    if (targetRef.current && tooltipRef.current) {
-      const popper = new Popper(targetRef.current, tooltipRef.current, {})
-      void popper
+    let popper = null
+
+    if (target && tooltip) {
+      popper = new Popper(target, tooltip, {})
     }
-  }, [])
+
+    return () => {
+      popper && popper.destroy()
+    }
+  }, [target, tooltip])
 
   return { targetRef, tooltipRef, arrowRef }
 }

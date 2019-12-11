@@ -15,10 +15,16 @@ let showTooltip = false
   )}
 </>
 ;<>
-  <button ref={targetRef}>hello world</button>
-  <DominoTooltip open={tooltipOpen} tooltipRef={tooltipRef} arrowRef={arrowRef}>
-    hello back
-  </DominoTooltip>
+  <button ref={targetRef}>
+    hello world
+    <DominoTooltip
+      open={showTooltip}
+      tooltipRef={tooltipRef}
+      arrowRef={arrowRef}
+    >
+      hello back
+    </DominoTooltip>
+  </button>
 </>
 ;<DominoTooltip
   open={tooltipOpen}
