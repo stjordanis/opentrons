@@ -88,19 +88,19 @@ export type WifiConfigureResponse = {
 // fetch status
 
 export type FetchStatusAction = {|
-  type: 'network:FETCH_STATUS',
+  type: 'networking:FETCH_STATUS',
   payload: {| robotName: string |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchStatusSuccessAction = {|
-  type: 'network:FETCH_STATUS_SUCCESS',
+  type: 'networking:FETCH_STATUS_SUCCESS',
   payload: {| robotName: string, networkStatus: NetworkingStatusResponse |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchStatusFailureAction = {|
-  type: 'network:FETCH_STATUS_FAILURE',
+  type: 'networking:FETCH_STATUS_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
@@ -108,19 +108,19 @@ export type FetchStatusFailureAction = {|
 // fetch wifi list
 
 export type FetchWifiListAction = {|
-  type: 'network:FETCH_WIFI_LIST',
+  type: 'networking:FETCH_WIFI_LIST',
   payload: {| robotName: string |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiListSuccessAction = {|
-  type: 'network:FETCH_WIFI_LIST_SUCCESS',
-  payload: {| robotName: string, networkList: WifiNetworkList |},
+  type: 'networking:FETCH_WIFI_LIST_SUCCESS',
+  payload: {| robotName: string, networkList: WifiListResponse |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiListFailureAction = {|
-  type: 'network:FETCH_WIFI_LIST_FAILURE',
+  type: 'networking:FETCH_WIFI_LIST_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
@@ -128,19 +128,19 @@ export type FetchWifiListFailureAction = {|
 // fetch wifi eap options
 
 export type FetchWifiEapOptionsAction = {|
-  type: 'network:FETCH_WIFI_EAP_OPTIONS',
+  type: 'networking:FETCH_WIFI_EAP_OPTIONS',
   payload: {| robotName: string |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiEapOptionsSuccessAction = {|
-  type: 'network:FETCH_WIFI_EAP_OPTIONS_SUCCESS',
+  type: 'networking:FETCH_WIFI_EAP_OPTIONS_SUCCESS',
   payload: {| robotName: string, eapOptions: WifiEapOptionsResponse |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiEapOptionsFailureAction = {|
-  type: 'network:FETCH_WIFI_EAP_OPTIONS_FAILURE',
+  type: 'networking:FETCH_WIFI_EAP_OPTIONS_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
@@ -148,19 +148,19 @@ export type FetchWifiEapOptionsFailureAction = {|
 // fetch wifi keys
 
 export type FetchWifiKeysAction = {|
-  type: 'network:FETCH_WIFI_KEYS',
+  type: 'networking:FETCH_WIFI_KEYS',
   payload: {| robotName: string |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiKeysSuccessAction = {|
-  type: 'network:FETCH_WIFI_KEYS_SUCCESS',
+  type: 'networking:FETCH_WIFI_KEYS_SUCCESS',
   payload: {| robotName: string, wifiKeys: WifiKeysResponse |},
   meta: RobotApiRequestMeta,
 |}
 
 export type FetchWifiKeysFailureAction = {|
-  type: 'network:FETCH_WIFI_KEYS_FAILURE',
+  type: 'networking:FETCH_WIFI_KEYS_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
@@ -168,19 +168,19 @@ export type FetchWifiKeysFailureAction = {|
 // add wifi key
 
 export type AddWifiKeysAction = {|
-  type: 'network:WIFI_KEYS',
+  type: 'networking:WIFI_KEYS',
   payload: {| robotName: string, key: WifiKeysRequest |},
   meta: RobotApiRequestMeta,
 |}
 
 export type AddWifiKeysSuccessAction = {|
-  type: 'network:WIFI_KEYS_SUCCESS',
+  type: 'networking:WIFI_KEYS_SUCCESS',
   payload: {| robotName: string, key: WifiKey |},
   meta: RobotApiRequestMeta,
 |}
 
 export type AddWifiKeysFailureAction = {|
-  type: 'network:WIFI_KEYS_FAILURE',
+  type: 'networking:WIFI_KEYS_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
@@ -191,19 +191,59 @@ export type AddWifiKeysFailureAction = {|
 // configure
 
 export type ConfigureWifiAction = {|
-  type: 'network:WIFI_CONFIGURE',
+  type: 'networking:WIFI_CONFIGURE',
   payload: {| robotName: string, config: WifiConfigureRequest |},
   meta: RobotApiRequestMeta,
 |}
 
 export type ConfigureWifiSuccessAction = {|
-  type: 'network:WIFI_CONFIGURE_SUCCESS',
+  type: 'networking:WIFI_CONFIGURE_SUCCESS',
   payload: {| robotName: string, response: WifiConfigureResponse |},
   meta: RobotApiRequestMeta,
 |}
 
 export type ConfigureWifiFailureAction = {|
-  type: 'network:WIFI_CONFIGURE_FAILURE',
+  type: 'networking:WIFI_CONFIGURE_FAILURE',
   payload: {| robotName: string, error: {} |},
   meta: RobotApiRequestMeta,
 |}
+
+// networking action unions
+
+export type FetchStatusDoneAction =
+  | FetchStatusFailureAction
+  | FetchStatusSuccessAction
+
+export type FetchWifiListDoneAction =
+  | FetchWifiListSuccessAction
+  | FetchWifiListFailureAction
+
+export type FetchWifiEapOptionsDoneAction =
+  | FetchWifiEapOptionsSuccessAction
+  | FetchWifiEapOptionsFailureAction
+
+export type FetchWifiKeysDoneAction =
+  | FetchWifiKeysSuccessAction
+  | FetchWifiKeysFailureAction
+
+export type AddWifiKeysDoneAction =
+  | AddWifiKeysSuccessAction
+  | AddWifiKeysFailureAction
+
+export type ConfigureWifiDoneAction =
+  | ConfigureWifiSuccessAction
+  | ConfigureWifiFailureAction
+
+export type NetworkingAction =
+  | FetchStatusDoneAction
+  | FetchStatusAction
+  | FetchWifiListDoneAction
+  | FetchWifiListAction
+  | FetchWifiEapOptionsDoneAction
+  | FetchWifiEapOptionsAction
+  | FetchWifiKeysDoneAction
+  | FetchWifiKeysAction
+  | AddWifiKeysDoneAction
+  | AddWifiKeysFailureAction
+  | ConfigureWifiDoneAction
+  | ConfigureWifiFailureAction
