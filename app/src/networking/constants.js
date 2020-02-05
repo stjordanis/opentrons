@@ -1,0 +1,42 @@
+// @flow
+
+// action type strings
+
+export const FETCH_STATUS: 'network:FETCH_STATUS' = 'network:FETCH_STATUS'
+export const FETCH_STATUS_SUCCESS: 'network:FETCH_STATUS_SUCCESS' =
+  'network:FETCH_STATUS_SUCCESS'
+export const FETCH_STATUS_FAILURE: 'network:FETCH_STATUS_FAILURE' =
+  'network:FETCH_STATUS_FAILURE'
+
+export const FETCH_WIFI_LIST: 'network:FETCH_WIFI_LIST' =
+  'network:FETCH_WIFI_LIST'
+export const FETCH_WIFI_LIST_SUCCESS: 'network:FETCH_WIFI_LIST_SUCCESS' =
+  'network:FETCH_WIFI_LIST_SUCCESS'
+export const FETCH_WIFI_LIST_FAILURE: 'network:FETCH_WIFI_LIST_FAILURE' =
+  'network:FETCH_WIFI_LIST_FAILURE'
+
+export const FETCH_WIFI_EAP_OPTIONS: 'network:FETCH_WIFI_EAP_OPTIONS' =
+  'network:FETCH_WIFI_EAP_OPTIONS'
+export const FETCH_WIFI_EAP_OPTIONS_SUCCESS: 'network:FETCH_WIFI_EAP_OPTIONS_SUCCESS' =
+  'network:FETCH_WIFI_EAP_OPTIONS_SUCCESS'
+export const FETCH_WIFI_EAP_OPTIONS_FAILURE: 'network:FETCH_WIFI_EAP_OPTIONS_FAILURE' =
+  'network:FETCH_WIFI_EAP_OPTIONS_FAILURE'
+
+export const FETCH_WIFI_KEYS: 'network:FETCH_WIFI_KEYS' =
+  'network:FETCH_WIFI_KEYS'
+export const FETCH_WIFI_KEYS_SUCCESS: 'network:FETCH_WIFI_KEYS_SUCCESS' =
+  'network:FETCH_WIFI_KEYS_SUCCESS'
+export const FETCH_WIFI_KEYS_FAILURE: 'network:FETCH_WIFI_KEYS_FAILURE' =
+  'network:FETCH_WIFI_KEYS_FAILURE'
+
+export const WIFI_KEYS: 'network:WIFI_KEYS' = 'network:WIFI_KEYS'
+export const WIFI_KEYS_SUCCESS: 'network:WIFI_KEYS_SUCCESS' =
+  'network:WIFI_KEYS_SUCCESS'
+export const WIFI_KEYS_FAILURE: 'network:WIFI_KEYS_FAILURE' =
+  'network:WIFI_KEYS_FAILURE'
+
+export const WIFI_CONFIGURE: 'network:WIFI_CONFIGURE' = 'network:WIFI_CONFIGURE'
+export const WIFI_CONFIGURE_SUCCESS: 'network:WIFI_CONFIGURE_SUCCESS' =
+  'network:WIFI_CONFIGURE_SUCCESS'
+export const WIFI_CONFIGURE_FAILURE: 'network:WIFI_CONFIGURE_FAILURE' =
+  'network:WIFI_CONFIGURE_FAILURE'
