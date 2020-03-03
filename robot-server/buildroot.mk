@@ -27,7 +27,7 @@ define PYTHON_OPENTRONS_ROBOT_SERVER_INSTALL_VERSION
 	echo '$(call OTROBOTSERVER_DUMP_BR_VERSION)' > $(BINARIES_DIR)/opentrons-robot-server-version.json
 endef
 
-ot_api_name := python-opentrons-robot-server
+ot_robot_server_name := python-opentrons-robot-server
 
 define PYTHON_OPENTRONS_ROBOT_SERVER_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 0644 $(BR2_EXTERNAL_OPENTRONS_MONOREPO_PATH)/robot-server/$(PYTHON_OPENTRONS_ROBOT_SERVER_SERVICE_FILE_NAME) \
@@ -42,5 +42,5 @@ endef
 # Calling inner-python-package directly instead of using python-package macro
 # because our directory layout doesn’t conform to buildroot’s expectation of
 # having the directory name be the package name
-$(eval $(call inner-python-package,$(ot_api_name),$(call UPPERCASE,$(ot_api_name)),$(call UPPERCASE,$(ot_api_name)),target))
+$(eval $(call inner-python-package,$(ot_robot_server_name),$(call UPPERCASE,$(ot_robot_server_name)),$(call UPPERCASE,$(ot_robot_server_name)),target))
 
