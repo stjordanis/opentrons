@@ -19,12 +19,12 @@ PYTHON_OPENTRONS_ROBOT_SERVER_SUBDIR = robot-server
 PYTHON_OPENTRONS_ROBOT_SERVER_POST_INSTALL_TARGET_HOOKS = PYTHON_OPENTRONS_ROBOT_SERVER_INSTALL_VERSION
 PYTHON_OPENTRONS_ROBOT_SERVER_SERVICE_FILE_NAME=opentrons-robot-server.service
 
-define OTAPI_DUMP_BR_VERSION
+define OTROBOTSERVER_DUMP_BR_VERSION
 	$(shell python $(BR2_EXTERNAL_OPENTRONS_MONOREPO_PATH)/scripts/python_build_utils.py robot-server dump_br_version)
 endef
 
 define PYTHON_OPENTRONS_ROBOT_SERVER_INSTALL_VERSION
-	echo '$(call OTAPI_DUMP_BR_VERSION)' > $(BINARIES_DIR)/opentrons-robot-server-version.json
+	echo '$(call OTROBOTSERVER_DUMP_BR_VERSION)' > $(BINARIES_DIR)/opentrons-robot-server-version.json
 endef
 
 ot_api_name := python-opentrons-robot-server
