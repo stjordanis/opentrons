@@ -276,6 +276,7 @@ def test_eap_config_options(api_client):
     assert resp.status_code == 200
 
     body = resp.json()
+
     # Check that the body is shaped correctly but ignore the actual content
     assert 'options' in body
     option_keys = ('name', 'displayName', 'required', 'type')
