@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from starlette.responses import JSONResponse
 from starlette.requests import Request
 from .routers import health, networking, control, settings, deck_calibration, \
-    modules, pipettes
+    modules, pipettes, motors
 from .models import V1BasicResponse
 from .exceptions import V1HandlerError
 
@@ -33,6 +33,8 @@ app.include_router(router=modules.router,
                    tags=["modules"])
 app.include_router(router=pipettes.router,
                    tags=["pipettes"])
+app.include_router(router=motors.router,
+                   tags=["motors"])
 
 
 @app.exception_handler(V1HandlerError)
