@@ -1,7 +1,6 @@
 from typing import Optional, List, Dict
 from pydantic import BaseModel, ValidationError
 
-from starlette.exceptions import HTTPException as StarletteHTTPException
 # https://github.com/encode/starlette/blob/master/starlette/status.py
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
@@ -28,24 +27,26 @@ class Error(BaseModel):
 class ErrorResponse(BaseModel):
     errors: List[Error]
 
-def transform_to_json_api_errors(status_code, exception) -> Dict:
-    if isinstance(exception, StarletteHTTPException):
-        request_error = {
+
+def transform_http_exception_to_json_api_errors(exception) -> Dict:
+    request_error = [{
+        'status': exception.status_code,
+        'detail': exception.detail,
+        'title': 'Bad Request'
+    }]
+    error_response = ErrorResponse(errors=request_error)
+    return error_response.dict(exclude_unset=True)
+
+def transform_validation_error_to_json_api_errors(status_code, exception) -> Dict:
+    def transform_error(error):
+        return {
             'status': status_code,
-            'detail': exception.detail,
-            'title': 'Bad Request'
+            'detail': error.get('msg'),
+            'source': { 'pointer': '/' + '/'.join(error['loc']) },
+            'title': error.get('type')
         }
-        error_response = ErrorResponse(errors=[request_error])
-        return error_response.dict(exclude_unset=True)
-    else:
-        def transform_error(error):
-            return {
-                'status': status_code,
-                'detail': error.get('msg'),
-                'source': { 'pointer': '/' + '/'.join(error['loc']) },
-                'title': error.get('type')
-            }
-        error_response = ErrorResponse(
-            errors=[transform_error(error) for error in exception.errors()]
-        )
-        return error_response.dict(exclude_unset=True)
+
+    error_response = ErrorResponse(
+        errors=[transform_error(error) for error in exception.errors()]
+    )
+    return error_response.dict(exclude_unset=True)

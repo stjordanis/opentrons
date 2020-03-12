@@ -7,7 +7,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from .routers import health, networking, control, settings, deck_calibration, item
-from .models.json_api.errors import ErrorResponse, transform_to_json_api_errors
+from .models.json_api.errors import ErrorResponse, transform_validation_error_to_json_api_errors, transform_http_exception_to_json_api_errors
 
 app = FastAPI(
     title="Opentrons OT-2 HTTP API Spec",
@@ -21,7 +21,7 @@ app = FastAPI(
 
 @app.exception_handler(RequestValidationError)
 async def custom_request_validation_exception_handler(request, exception) -> JSONResponse:
-    errors = transform_to_json_api_errors(HTTP_422_UNPROCESSABLE_ENTITY, exception)
+    errors = transform_validation_error_to_json_api_errors(HTTP_422_UNPROCESSABLE_ENTITY, exception)
     return JSONResponse(
         status_code=HTTP_422_UNPROCESSABLE_ENTITY,
         content=errors,
@@ -29,7 +29,7 @@ async def custom_request_validation_exception_handler(request, exception) -> JSO
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request, exception) -> JSONResponse:
-    errors = transform_to_json_api_errors(exception.status_code, exception)
+    errors = transform_http_exception_to_json_api_errors(exception)
     return JSONResponse(
         status_code=exception.status_code,
         content=errors,

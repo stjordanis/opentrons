@@ -3,10 +3,12 @@ from functools import reduce
 import pytest
 from pytest import raises
 from pydantic import ValidationError
+from starlette.exceptions import HTTPException
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from robot_server.service.models.json_api.request import JsonApiRequest
-from robot_server.service.models.json_api.errors import ErrorResponse, transform_to_json_api_errors
+from robot_server.service.models.json_api.errors import ErrorResponse, \
+    transform_validation_error_to_json_api_errors
 
 from tests.service.helpers import ItemRequest
 
@@ -48,14 +50,14 @@ def test_empty_error_response_valid():
     validated = ErrorResponse(**error_response)
     assert validated.dict(exclude_unset=True) == error_response
 
-def test_transform_to_json_api_errors():
+def test_transform_validation_error_to_json_api_errors():
     with raises(ValidationError) as e:
         ItemRequest(**{
             'data': {
                 'type': 'invalid'
             }
         })
-    assert transform_to_json_api_errors(
+    assert transform_validation_error_to_json_api_errors(
         HTTP_422_UNPROCESSABLE_ENTITY,
         e.value
     ) == {
