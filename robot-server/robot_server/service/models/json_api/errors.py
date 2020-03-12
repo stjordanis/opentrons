@@ -29,22 +29,22 @@ class ErrorResponse(BaseModel):
 
 
 def transform_http_exception_to_json_api_errors(exception) -> Dict:
-    request_error = [{
-        'status': exception.status_code,
-        'detail': exception.detail,
-        'title': 'Bad Request'
-    }]
-    error_response = ErrorResponse(errors=request_error)
+    request_error = Error(
+        status=exception.status_code,
+        detail=exception.detail,
+        title='Bad Request'
+    )
+    error_response = ErrorResponse(errors=[request_error])
     return error_response.dict(exclude_unset=True)
 
 def transform_validation_error_to_json_api_errors(status_code, exception) -> Dict:
     def transform_error(error):
-        return {
-            'status': status_code,
-            'detail': error.get('msg'),
-            'source': { 'pointer': '/' + '/'.join(error['loc']) },
-            'title': error.get('type')
-        }
+        return Error(
+            status=status_code,
+            detail=error.get('msg'),
+            source=ErrorSource(pointer='/' + '/'.join(error['loc'])),
+            title=error.get('type')
+        )
 
     error_response = ErrorResponse(
         errors=[transform_error(error) for error in exception.errors()]
