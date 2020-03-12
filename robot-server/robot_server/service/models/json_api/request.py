@@ -23,8 +23,8 @@ class RequestModel(GenericModel, Generic[DataT]):
 
 def JsonApiRequest(type_string: str, attributes_model: Any) -> Type[RequestModel]:
     request_data_model = RequestDataModel[
-        Literal[type_string],
-        attributes_model,
+        Literal[type_string], # type: ignore
+        attributes_model, # type: ignore
     ]
     request_data_model.__name__ = f'RequestData[{type_string}]'
     request_model = RequestModel[request_data_model]

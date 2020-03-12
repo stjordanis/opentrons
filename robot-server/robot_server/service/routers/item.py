@@ -1,7 +1,6 @@
-import inspect
-
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import ValidationError
+from typing import Optional
 
 from robot_server.service.models.item import Item, ItemData
 from robot_server.service.models.json_api.factory import JsonApiModel
