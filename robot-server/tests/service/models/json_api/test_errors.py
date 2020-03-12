@@ -7,7 +7,6 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from robot_server.service.models.json_api.request import JsonApiRequest
 from robot_server.service.models.json_api.errors import ErrorResponse, transform_to_json_api_errors
-from robot_server.service.models.json_api.filter import filter_none
 
 from tests.service.helpers import ItemRequest
 
@@ -32,7 +31,7 @@ valid_error_responses = map(errors_wrapper, valid_error_objects)
 @pytest.mark.parametrize('error_response', valid_error_responses)
 def test_valid_error_response_fields(error_response):
     validated = ErrorResponse(**error_response)
-    assert filter_none(validated.dict()) == error_response
+    assert validated.dict(exclude_unset=True) == error_response
 
 error_with_all_fields = reduce(
     lambda acc, d: { **acc, **d }, valid_error_objects, {}
@@ -41,13 +40,13 @@ error_with_all_fields = reduce(
 def test_error_response_with_all_fields():
     error_response = errors_wrapper(error_with_all_fields)
     validated = ErrorResponse(**error_response)
-    assert filter_none(validated.dict()) == error_response
+    assert validated.dict(exclude_unset=True) == error_response
 
 
 def test_empty_error_response_valid():
     error_response = { 'errors': [] }
     validated = ErrorResponse(**error_response)
-    assert filter_none(validated.dict()) == error_response
+    assert validated.dict(exclude_unset=True) == error_response
 
 def test_transform_to_json_api_errors():
     with raises(ValidationError) as e:

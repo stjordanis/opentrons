@@ -17,6 +17,7 @@ ItemRequest, ItemResponse = JsonApiModel(ITEM_TYPE_NAME, Item)
             description="Get an individual item by it's ID",
             summary="Get an individual item",
             response_model=ItemResponse,
+            response_model_exclude_unset=True,
             responses={
                 HTTP_422_UNPROCESSABLE_ENTITY: { "model": ErrorResponse },
             })
@@ -33,6 +34,7 @@ async def get_item(item_id: int) -> ItemResponse:
             description="Create an item",
             summary="Create an item via post route",
             response_model=ItemResponse,
+            response_model_exclude_unset=True,
             responses={
                 HTTP_400_BAD_REQUEST: { "model": ErrorResponse },
                 HTTP_422_UNPROCESSABLE_ENTITY: { "model": ErrorResponse },

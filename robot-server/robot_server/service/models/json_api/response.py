@@ -3,7 +3,6 @@ from typing_extensions import Literal
 
 from pydantic.generics import GenericModel
 
-from .filter import filter_none
 from .resource_links import ResourceLinks
 
 TypeT = TypeVar('TypeT', bound=str)
@@ -25,17 +24,6 @@ class ResponseModel(GenericModel, Generic[DataT]):
     meta: Optional[Dict]
     data: DataT
     links: Optional[ResourceLinks]
-
-    def dict(
-        self,
-        *,
-        serialize_none: bool = False,
-        **kwargs
-    ):
-        response = super().dict(**kwargs)
-        if serialize_none:
-            return response
-        return filter_none(response)
 
     @classmethod
     def resource_object(

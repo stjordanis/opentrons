@@ -12,6 +12,8 @@ class TestJsonApiResponse:
         }
         my_response_object = MyResponse(**obj_to_validate)
         assert my_response_object.dict() == {
+            'meta': None,
+            'links': None,
             'data': {
                 'id': '123',
                 'type': 'item',
@@ -26,6 +28,8 @@ class TestJsonApiResponse:
         }
         my_response_object = MyResponse(**obj_to_validate)
         assert my_response_object.dict() == {
+            'meta': None,
+            'links': None,
             'data': {
                 'id': '123',
                 'type': 'item',
@@ -43,6 +47,8 @@ class TestJsonApiResponse:
         }
         my_response_object = MyResponse(**obj_to_validate)
         assert my_response_object.dict() == {
+            'meta': None,
+            'links': None,
             'data': {
                 'id': '123',
                 'type': 'item',
@@ -54,6 +60,8 @@ class TestJsonApiResponse:
     def test_attributes_as_item_model(self):
         ItemResponse = JsonApiResponse('item', ItemModel)
         obj_to_validate = {
+            'meta': None,
+            'links': None,
             'data': {
                 'id': '123',
                 'type': 'item',
@@ -66,6 +74,8 @@ class TestJsonApiResponse:
         }
         my_response_obj = ItemResponse(**obj_to_validate)
         assert my_response_obj.dict() == {
+            'meta': None,
+            'links': None,
             'data': {
                 'id': '123',
                 'type': 'item',
@@ -80,6 +90,8 @@ class TestJsonApiResponse:
     def test_list_item_model(self):
         ItemResponse = JsonApiResponse('item', ItemModel, use_list=True)
         obj_to_validate = {
+            'meta': None,
+            'links': None,
             'data': [
                 {
                     'id': '123',
@@ -103,6 +115,8 @@ class TestJsonApiResponse:
         }
         my_response_obj = ItemResponse(**obj_to_validate)
         assert my_response_obj.dict() == {
+            'meta': None,
+            'links': None,
             'data': [
                 {
                     'id': '123',
@@ -222,6 +236,8 @@ class TestJsonApiResponse:
         data = ItemResponse.resource_object(id='abc123', attributes=item).dict()
 
         assert ItemResponse(data=data).dict() == {
+            'meta': None,
+            'links': None,
             "data": {
                 'id': 'abc123',
                 "type": 'item',
@@ -247,6 +263,8 @@ class TestJsonApiResponse:
             ]
         )
         assert response.dict() == {
+            'meta': None,
+            'links': None,
             'data': [
                 {
                     'id': '1',
