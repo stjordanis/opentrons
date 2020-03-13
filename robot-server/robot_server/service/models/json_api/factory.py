@@ -3,7 +3,7 @@ from typing import Type, Any, Tuple
 from .request import JsonApiRequest, RequestModel
 from .response import JsonApiResponse, ResponseModel
 
-def JsonApiModel(
+def generate_json_api_models(
     type_string: str,
     attributes_model: Any,
     *,
