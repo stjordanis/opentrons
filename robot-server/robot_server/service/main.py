@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from starlette.responses import JSONResponse
 from starlette.requests import Request
 from .routers import health, networking, control, settings, deck_calibration, \
-    modules, pipettes, motors
+    modules, pipettes, motors, camera
 from .models import V1BasicResponse
 from .exceptions import V1HandlerError
 
@@ -35,6 +35,8 @@ app.include_router(router=pipettes.router,
                    tags=["pipettes"])
 app.include_router(router=motors.router,
                    tags=["motors"])
+app.include_router(router=camera.router,
+                   tags=["camera"])
 
 
 @app.exception_handler(V1HandlerError)
